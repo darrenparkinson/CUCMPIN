@@ -175,6 +175,9 @@ function updateUserPIN(userid, emailaddress) {
   });
 }
 
+/**
+ * Function to output user instructions.
+*/
 function outputUsage() {
   console.log("\nCUCMPIN Usage: ");
   console.log("   node CUCMPIN userid emailaddress");
