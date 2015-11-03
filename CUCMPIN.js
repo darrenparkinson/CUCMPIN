@@ -83,7 +83,7 @@ function random(howMany, chars) {
 
 /**
  * Used to generate the PIN using one of the random generators above.
- * @param {number} pinLengh - how long you want the pin to be.
+ * @param {number} pinlength - how long you want the pin to be.
 */
 function generatePIN(pinlength) {
   return random(pinlength || 4); 
