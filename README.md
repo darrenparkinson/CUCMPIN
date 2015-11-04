@@ -15,7 +15,9 @@ The only external modules required for this script are:
 * nodemailer
 * xml2js
 
-These can be installed easily by creating a new directory and running the following commands:
+These can be installed by downloading this repository and running `npm install`.
+
+Alternatively these can be installed manually by creating a new directory and running the following commands:
 
 `npm install nodemailer`  
 `npm install xml2js`

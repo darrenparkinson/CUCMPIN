@@ -1,0 +1,26 @@
+{
+  "name": "CUCMPIN",
+  "version": "1.0.0",
+  "description": "Script to set a user's Communications Manager PIN and email it to them.",
+  "main": "CUCMPIN.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/darrenparkinson/CUCMPIN.git"
+  },
+  "keywords": [
+    "CUCM"
+  ],
+  "author": "Darren Parkinson",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/darrenparkinson/CUCMPIN/issues"
+  },
+  "homepage": "https://github.com/darrenparkinson/CUCMPIN",
+  "dependencies": {
+    "nodemailer": "^1.8.0",
+    "xml2js": "^0.4.15"
+  }
+}
