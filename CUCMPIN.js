@@ -1,6 +1,10 @@
-//
-// Communications Manager PIN Reset
-// 
+/**
+* @fileOverview Communications Manager PIN Reset
+* @author Darren Parkinson
+* @version 1.0
+* @license mit
+* @requires nodemailer, xmljs
+*/
 
 // *** Modules ***
 var https = require('https');
@@ -52,8 +56,8 @@ var options = {
  * Generates random string of numbers given quantity.  
  * It will use numbers 0-9.
  * This function is not used and is an example of a simpler psuedo random generation.
- * @param {number} howMany - how many characters returned in result
- * @param {string} chars - Characters allowed in result (optional) 
+ * @param {number} length - how many characters returned in result
+ * @returns {string} - PIN 
 */
 function pseudoRandom(length) {
   returnPIN = '';
@@ -68,6 +72,7 @@ function pseudoRandom(length) {
  * By default, it will use numbers 0-9.
  * @param {number} howMany - how many characters returned in result
  * @param {string} chars - Characters allowed in result (optional) 
+ * @returns {string} - PIN
 */
 function random(howMany, chars) {
   chars = chars || "0123456789";
@@ -82,8 +87,9 @@ function random(howMany, chars) {
 }
 
 /**
- * Used to generate the PIN using one of the random generators above.
+ * Used to generate the PIN using either the pseudoRandom or random functions included.
  * @param {number} pinlength - how long you want the pin to be.
+ * @returns {string} - PIN
 */
 function generatePIN(pinlength) {
   return random(pinlength || 4); 
@@ -92,7 +98,7 @@ function generatePIN(pinlength) {
 /**
  * Send an email to the specified recipient
  * @param {string} pin - PIN to send the recipient
- * @param {string} toRecipient - Recipient for the email
+ * @param {string} toRecipient - Recipient email address
 */
 function sendEmailWithPIN(pin, toRecipient) {
   var transporter = nodemailer.createTransport({
