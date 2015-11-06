@@ -30,3 +30,4 @@ Once these are installed, you can download the script and amend the following va
 * _emailUser_ : the account that emails will be sent from (currently on gmail, but can be changed)
 * _emailPassword_ : the password for the gmail account.  For testing I created an app password in gmail.
 
+

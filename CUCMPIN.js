@@ -5,6 +5,8 @@
 * @license mit
 * @requires nodemailer, xmljs
 */
+'use strict';
+/* jshint node: true */
 
 // *** Modules ***
 var https = require('https');
@@ -35,9 +37,9 @@ var authentication = axlUser + ':' + axlPassword;
 /** Headers for the CUCM request. */
 var headers = {
   'SoapAction':'CUCM:DB ver=9.1',
-  'Authorization': 'Basic ' + new Buffer(authentication).toString('base64'), 
+  'Authorization': 'Basic ' + new Buffer(authentication).toString('base64'),
   'Content-Type': 'text/xml; charset=utf-8'
-}
+};
 
 var options = {
   host: cucmHost,        // The IP Address of the Communications Manager Server
@@ -53,14 +55,14 @@ var options = {
 // ***
 
 /**
- * Generates random string of numbers given quantity.  
+ * Generates random string of numbers given quantity.
  * It will use numbers 0-9.
  * This function is not used and is an example of a simpler psuedo random generation.
  * @param {number} length - how many characters returned in result
- * @returns {string} - PIN 
+ * @returns {string} - PIN
 */
 function pseudoRandom(length) {
-  returnPIN = '';
+  var returnPIN = '';
   for (var i = 0; i < length; i++) {
     returnPIN += Math.floor(Math.random() * (10 - 0) + 0);
   }
@@ -68,16 +70,16 @@ function pseudoRandom(length) {
 }
 
 /**
- * Generates random string given quantity and characters to use.  
+ * Generates random string given quantity and characters to use.
  * By default, it will use numbers 0-9.
  * @param {number} howMany - how many characters returned in result
- * @param {string} chars - Characters allowed in result (optional) 
+ * @param {string} chars - Characters allowed in result (optional)
  * @returns {string} - PIN
 */
 function random(howMany, chars) {
   chars = chars || "0123456789";
-  var rnd = crypto.randomBytes(howMany)
-  var value = new Array(howMany)
+  var rnd = crypto.randomBytes(howMany);
+  var value = new Array(howMany);
   var len = chars.length;
 
   for (var i = 0; i < howMany; i++) {
@@ -92,7 +94,7 @@ function random(howMany, chars) {
  * @returns {string} - PIN
 */
 function generatePIN(pinlength) {
-  return random(pinlength || 4); 
+  return random(pinlength || 4);
 }
 
 /**
@@ -144,8 +146,8 @@ function updateUserPIN(userid, emailaddress) {
   '</soapenv:Envelope>');
 
   var req = https.request(options, function(res) {
-    if (DEBUG) {console.log("status code = ", res.statusCode)}
-    if (DEBUG) {console.log("headers = " , res.headers)}
+    if (DEBUG) {console.log("status code = ", res.statusCode);}
+    if (DEBUG) {console.log("headers = " , res.headers);}
     res.setEncoding('utf8');
     res.on('data', function(d) {
       responseData += d;
@@ -155,9 +157,9 @@ function updateUserPIN(userid, emailaddress) {
       parser.parseString(responseData, function (err, result) {
         if (err) { return console.log("Error: " + err); }
         // Check we have a SOAP object:
-        if (Object.prototype.hasOwnProperty.call(result, 'soapenv:Envelope')) { 
+        if (Object.prototype.hasOwnProperty.call(result, 'soapenv:Envelope')) {
           // Check it's not a fault message:
-          if (Object.prototype.hasOwnProperty.call(result['soapenv:Envelope']['soapenv:Body'][0], 'soapenv:Fault')) { 
+          if (Object.prototype.hasOwnProperty.call(result['soapenv:Envelope']['soapenv:Body'][0], 'soapenv:Fault')) {
             return console.log("Error: " + result['soapenv:Envelope']['soapenv:Body'][0]['soapenv:Fault'][0]['faultstring'][0] );
           }
           if (Object.prototype.hasOwnProperty.call(result['soapenv:Envelope']['soapenv:Body'][0], 'ns:updateUserResponse')) {
